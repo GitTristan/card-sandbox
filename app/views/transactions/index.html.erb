@@ -5,25 +5,31 @@
 <table class='table'>
   <thead>
     <tr>
+      <th><stong>Name</strong></th>
       <th><strong>Amount</strong></th>
-      <th><stong>Card Number</strong></th>
       <th><stong>Exp Date</strong></th>
-      <th><stong>CVV</strong></th>
       <th><stong>Auth Code</strong></th>
+      <th><stong>Token?</strong></th>
     </tr>
   </thead>
 
   <% @transaction.each do |transaction| %>
     <tr>
+      <td><%= transaction.full_name %></td>
       <td><%= transaction.amount %></td>
-      <td><%= "XXXX-XXXX-XXXX-#{transaction.card_number.slice!(12..16)}" %></td>
       <td><%= transaction.exp_date %></td>
-      <td><%= transaction.cvv %></td>
       <td>
         <% if transaction.auth_code.present? %>
           <%= transaction.auth_code %>
         <% else %>
           Tnx Declined
+        <% end %>
+      </td>
+      <td>
+        <% if transaction.token.present? %>
+          <%= transaction.token %>
+        <% else %>
+          False
         <% end %>
       </td>
     </tr>
